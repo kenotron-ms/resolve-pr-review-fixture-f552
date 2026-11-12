@@ -1,0 +1,12 @@
+// Public lifecycle-only compatibility stub (no declared result).
+digraph stub_compat {
+    label = "Stub merged compatibility"
+    goal = "Lifecycle-only success."
+    default_max_retries = 0
+    max_pipeline_duration = "5m"
+    start [label="Start", shape=Mdiamond]
+    check [label="Trivial check", shape=parallelogram, timeout="1m", tool_command="python3 -c 'print(1)'"]
+    done [label="Done", shape=Msquare]
+    start -> check
+    check -> done [condition="outcome=success"]
+}
