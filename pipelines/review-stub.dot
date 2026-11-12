@@ -1,0 +1,10 @@
+digraph ReviewStub {
+    graph [goal="Deterministic review-result producer for host boundary qualification", resolve_outputs="[\"review-result.json\"]",
+           param.pr_context="TextField:longText:PR context:optional", param.sha="TextField:shortText:Head SHA:optional"];
+    Start [shape=Mdiamond];
+    Emit [shape=parallelogram, label="Emit scenario result", timeout="60s",
+          tool_command="/opt/uv-tools/amplifier/bin/python tools/review_stub.py /project/.resolve/data/review-result.json"];
+    Exit [shape=Msquare];
+    Start -> Emit;
+    Emit -> Exit [condition="outcome=success"];
+}

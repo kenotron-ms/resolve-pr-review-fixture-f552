@@ -1,0 +1,10 @@
+digraph MergedCompat {
+    graph [goal="Lifecycle-only merged PR compatibility check",
+           param.merged_context="TextField:longText:Merged PR context:optional", param.sha="TextField:shortText:Merge SHA:optional"];
+    Start [shape=Mdiamond];
+    Check [shape=parallelogram, label="Verify tree", timeout="60s",
+           tool_command="/opt/uv-tools/amplifier/bin/python -m unittest discover -s tests"];
+    Exit [shape=Msquare];
+    Start -> Check;
+    Check -> Exit [condition="outcome=success"];
+}
